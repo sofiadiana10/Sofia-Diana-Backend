@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+   <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+     />
+ <style>
+    .product-card {
+       margin-bottom: 20px;
+    }
+</style>
+ </head>
+ <body>
+    <div class="container">
+        <h1>Lista de Productos</h1>
+           <div id="products-container">
+            {{#each products}}
+             <div class="card product-card">
+                    <div class="card-content">
+                        <span class="card-title">{{this.title}}</span>
+                            <p>{{this.description}}</p>
+                                <p><strong>Precio:</strong> ${{this.price}}</p>
+                                    <p><strong>Stock:</strong> {{this.stock}}</p>
+                     </div>
+                </div>
+                {{/each}}
+        </div>
+    </div>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
+    ></script>
+</body>
+</html>

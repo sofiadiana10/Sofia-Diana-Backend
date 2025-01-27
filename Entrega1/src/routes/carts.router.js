@@ -1,34 +1,77 @@
 import { Router } from 'express';
-import CartManager from '../utils/CartManager.js';
+import {
+    getCartService,
+    getCartByIdService,
+    createCartService,
+    addProductToCartService,
+    deleteCartService,
+    deleteProductFromCartService
+} from '../utils/CartManager.js';
 
 const router = Router();
-const cartManager = new CartManager('./data/carts.json');
 
-cartManager.readFile();
 
-router.post('/', async (req, res) => {
-    await cartManager.addCart();
-   res.status(201).send({message: 'Carrito creado'});
+router.get('/', async (req, res, next) => {
+  try {
+    const carts = await getCartService();
+    res.status(200).send(carts);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+router.get('/:cid', async (req, res, next) => {
+  try {
+    const { cid } = req.params;
+    const cart = await getCartByIdService(cid);
+     res.status(200).send(cart);
+  } catch (error) {
+   next(error);
+  }
+});
+
+router.post('/', async (req, res, next) => {
+    try {
+      const newCart = await createCartService();
+      res.status(201).send(newCart);
+    } catch (error) {
+      next(error)
+    }
+
+});
+
+
+router.post('/:cid/product/:pid', async (req, res, next) => {
+  try {
+    const { cid, pid } = req.params;
+    const { quantity } = req.body;
+    const cart = await addProductToCartService(cid, pid, quantity);
+    res.status(200).send(cart);
+  } catch (error) {
+   next(error);
+  }
+});
+
+router.delete('/:cid', async (req, res, next) => {
+    try {
+      const { cid } = req.params;
+      await deleteCartService(cid);
+      res.status(200).send({ message: 'Carrito eliminado' });
+    } catch (error) {
+      next(error);
+    }
   });
 
-router.get('/:cid', async (req, res) => {
-    const { cid } = req.params;
-    const cart = cartManager.getCartById(parseInt(cid));
-    if(!cart){
-     return res.status(404).send({message: 'Carrito no encontrado'});
-    }
-    res.status(200).send(cart.products);
- });
 
-router.post('/:cid/product/:pid', async (req, res) => {
-     const { cid, pid } = req.params;
-     const { quantity } = req.body;
-   
-    if(!quantity) {
-      return res.status(400).send({message: 'La cantidad es requerida'})
+router.delete('/:cid/products/:pid', async (req, res, next) => {
+  try {
+    const { cid, pid } = req.params;
+    await deleteProductFromCartService(cid, pid);
+      res.status(200).send({ message: 'Producto eliminado del carrito' });
+    } catch (error) {
+      next(error);
     }
-     await cartManager.addProductToCart(parseInt(cid), parseInt(pid), quantity)
-      res.status(201).send({message: 'Producto agregado al carrito'});
-   });
 
+});
 export default router;

@@ -1,7 +1,20 @@
 import { Router } from 'express';
-import ProductManager from '../utils/ProductManager.js';
+import {
+    getProductsService,
+    getProductByIdService,
+    createProductService,
+    updateProductService,
+    deleteProductService
+} from '../utils/ProductManager.js';
 
 const router = Router();
+
+router.get('/', getProducts);
+router.get('/:pid', getProductById);
+router.post('/', createProduct);
+router.put('/:pid', updateProduct);
+router.delete('/:pid', deleteProduct);
+
 const productManager = new ProductManager('./data/products.json');
 
 productManager.readFile()
@@ -15,7 +28,7 @@ router.get('/:pid', async (req, res) => {
     const { pid } = req.params
     const product = productManager.getProductById(parseInt(pid));
     if(!product){
-      return res.status(404).send({message: 'Product not found'})
+      return res.status(404).send({message: 'Producto no encontrado'})
     }
     res.status(200).send(product);
   });
@@ -23,7 +36,7 @@ router.get('/:pid', async (req, res) => {
 router.post('/', async (req, res) => {
    const product = req.body;
    await productManager.addProduct(product);
-   res.status(201).send({message: 'Product created'});
+   res.status(201).send({message: 'Producto creado'});
  });
 
 router.put('/:pid', async (req, res) => {
