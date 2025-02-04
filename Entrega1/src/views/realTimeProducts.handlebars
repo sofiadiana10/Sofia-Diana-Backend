@@ -1,106 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realtime Products</title>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+<h1 class="center-align">Productos en Tiempo Real</h1>
+<div class="row">
+  <ul id="lista-productos" class="collection">
+    {{#each products}}
+      <li class="collection-item col s12 m6">
+        <p><span
+            class="yellow accent-2"
+            style="border-radius: 10%; padding: 10px 15px; margin-right: 10px; font-weight: bold;"
+          >{{this.title}}</span>
+          Precio: ${{this.price}}
+          | Stock:
+          {{this.stock}}</p>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+
+<h2 class="section-title center-align">Agregar Producto</h2>
+
+<form id="form-agregar" class="col s12">
+  <div class="input-field">
+    <input type="text" id="title" placeholder="Nombre" required />
+    <label for="title">Nombre</label>
+  </div>
+  <div class="input-field">
+    <input type="text" id="description" placeholder="Descripcion" required />
+    <label for="description">Descripcion</label>
+  </div>
+   <div class="input-field">
+    <input type="text" id="code" placeholder="Código" required />
+    <label for="code">Código</label>
+  </div>
+  <div class="input-field">
+    <input type="number" id="price" placeholder="Precio" min="0" required />
+    <label for="precio">Precio</label>
+  </div>
+  <div class="input-field">
+    <input type="number" id="stock" placeholder="Stock" min="1" required />
+    <label for="stock">Stock</label>
+  </div>
+   <div class="input-field">
+    <input type="text" id="category" placeholder="Categoría" required />
+    <label for="category">Categoría</label>
+  </div>
+   <div class="input-field">
+    <input type="text" id="thumbnails" placeholder="Thumbnails" required />
+    <label for="thumbnails">Thumbnails</label>
+  </div>
+  <button type="submit" class="btn waves-effect waves-light">Agregar</button>
+</form>
+
+<h2 class="section-title center-align">Eliminar Producto</h2>
+
+<form id="form-eliminar" class="col s12">
+  <div class="input-field">
+    <input
+      type="text"
+      id="title-eliminar"
+      placeholder="Nombre del Producto a eliminar"
+      required
     />
-    <style>
-      .product-card {
-           margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Real Time Products</h1>
-         <div id="products-container">
-         </div>
-         <h2>Agregar producto</h2>
-         <form id="add-product-form">
-                <div class="input-field">
-                    <input type="text" id="title" placeholder="Title" required>
-                </div>
-                 <div class="input-field">
-                     <input type="text" id="description" placeholder="Description" required>
-                </div>
-                 <div class="input-field">
-                     <input type="text" id="price" placeholder="Price" required>
-                 </div>
-                  <div class="input-field">
-                     <input type="text" id="stock" placeholder="Stock" required>
-                 </div>
-                   <div class="input-field">
-                     <input type="text" id="category" placeholder="Category" required>
-                 </div>
-                    <div class="input-field">
-                     <input type="text" id="code" placeholder="Code" required>
-                   </div>
-                     <div class="input-field">
-                        <input type="text" id="thumbnails" placeholder="Thumbnails (separados por coma)" required>
-                    </div>
-                  <button class="btn" type="submit">Agregar</button>
-           </form>
-            <h2>Borrar Producto</h2>
-         <form id="delete-product-form">
-                <div class="input-field">
-                    <input type="text" id="id" placeholder="id" required>
-                </div>
-                 <button class="btn" type="submit">Borrar</button>
-            </form>
-     </div>
+    <label for="title-eliminar">Nombre del Producto</label>
+  </div>
+  <button
+    type="submit"
+    class="btn waves-effect waves-light red"
+  >Eliminar</button>
+</form>
 
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
-   ></script>
-   <script src="/socket.io/socket.io.js"></script>
-   <script>
-      const socket = io();
-      const productsContainer = document.getElementById('products-container');
-      const addProductForm = document.getElementById('add-product-form');
-      const deleteProductForm = document.getElementById('delete-product-form');
-
-      socket.on('products', (products) => {
-            let html = '';
-            products.forEach(product => {
-            html += `
-            <div class="card product-card">
-               <div class="card-content">
-                    <span class="card-title">${product.title}</span>
-                        <p>${product.description}</p>
-                           <p><strong>Precio:</strong> $${product.price}</p>
-                                <p><strong>Stock:</strong> ${product.stock}</p>
-                </div>
-             </div>
-              `;
-            });
-            productsContainer.innerHTML = html;
-        });
-
-         addProductForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-           const title = document.getElementById('title').value;
-           const description = document.getElementById('description').value;
-           const price = document.getElementById('price').value;
-            const stock = document.getElementById('stock').value;
-            const category = document.getElementById('category').value;
-            const code = document.getElementById('code').value;
-           const thumbnails = document.getElementById('thumbnails').value.split(',');
-            socket.emit('addProduct', { title, description, price, stock, category, code, thumbnails });
-             addProductForm.reset();
-
-         });
-
-      deleteProductForm.addEventListener('submit', (event) => {
-           event.preventDefault();
-         const id = document.getElementById('id').value;
-           socket.emit('deleteProduct', id);
-          deleteProductForm.reset();
-        });
-      socket.emit('getProducts');
-     </script>
-</body>
-</html>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/main.js"></script>
