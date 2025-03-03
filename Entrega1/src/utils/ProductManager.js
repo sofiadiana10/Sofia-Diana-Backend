@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { v4 as uuid } from "uuid";
-import { __dirname } from "../dirname.js";
+import { __dirname } from "../../dirname.js";
 
 const productsFilePath = path.resolve(__dirname, "../data/products.json");
 class ProductsService {

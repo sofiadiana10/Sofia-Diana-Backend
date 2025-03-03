@@ -1,11 +1,11 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
-import productsRouter from './routes/products.router.js';
-import cartsRouter from './routes/carts.router.js';
-import viewsRouter from './routes/views.router.js';
+import productsRouter from './src/routes/products.router.js';
+import cartsRouter from './src/routes/carts.router.js';
+import viewsRouter from './src/routes/views.router.js';
 import { Server } from 'socket.io';
 import http from 'http';
-import { createProductService, deleteProductService, getProductsService } from './utils/ProductManager.js';
+import { createProductService, deleteProductService, getProductsService } from './src/utils/ProductManager.js';
 
 const app = express();
 const PORT = 8080;

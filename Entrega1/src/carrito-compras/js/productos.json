@@ -1,0 +1,103 @@
+[
+    {
+        "id": "paleta-01",
+        "titulo": "Paletas",
+        "imagen": "./imagenes/paletas/photo_4913774562282417103_y.jpg",
+        "categoria": {
+            "nombre": "Bomboli",
+            "id": "paletas"
+        },
+        "precio": 10
+    },
+    {
+        "id": "paleta-02",
+        "titulo": "Kola",
+        "imagen": "./imagenes/paletas/photo_4913774562282417105_y.jpg",
+        "categoria": {
+            "nombre": "kola",
+            "id": "paletas"
+        },
+        "precio": 10
+    },
+    {
+        "id": "paleta-03",
+        "titulo": "Coco",
+        "imagen": "./imagenes/paletas/photo_4913774562282417107_y.jpg",
+        "categoria": {
+            "nombre": "Coco",
+            "id": "paletas"
+        },
+        "precio": 10
+    },
+    {
+        "id": "paleta-04",
+        "titulo": "Naranja",
+        "imagen": "./imagenes/paletas/photo_4913774562282417108_y.jpg",
+        "categoria": {
+            "nombre": "Naranja",
+            "id": "paletas"
+        },
+        "precio": 10
+    },
+    {
+        "id": "paleta-05",
+        "titulo": "Uva",
+        "imagen": "./imagenes/paletas/photo_4913774562282417109_y.jpg",
+        "categoria": {
+            "nombre": "Uva",
+            "id": "paletas"
+        },
+        "precio": 10
+    },
+    {
+        "id": "cremoso-01",
+        "titulo": "Moretto de fresa",
+        "imagen": "./imagenes/cremosos/HeladoTinitaFresa.png",
+        "categoria": {
+            "nombre": "Moretto de fresa",
+            "id": "cremosos"
+        },
+        "precio": 15
+    },
+    {
+        "id": "cremoso-02",
+        "titulo": "Moretto de Chocolate",
+        "imagen": "./imagenes/cremosos/photo1690469145.jpeg",
+        "categoria": {
+            "nombre": "Moretto de Chocolate",
+            "id": "cremosos"
+        },
+        "precio": 15
+    },
+    {
+        "id": "cremoso-03",
+        "titulo": "Moretto de Mantecado",
+        "imagen": "./imagenes/cremosos/HeladoTinitaMantecado.png",
+        "categoria": {
+            "nombre": "Moretto de Mantecado",
+            "id": "cremosos"
+        },
+        "precio": 15
+    },
+    
+    {
+        "id": "cremoso-05",
+        "titulo": "Cassata",
+        "imagen": "./imagenes/cremosos/photo1690487321.jpeg",
+        "categoria": {
+            "nombre": "Cassata",
+            "id": "cremosos"
+        },
+        "precio": 50
+    },
+    {
+        "id": "cremoso-04",
+        "titulo": "Concha de Coco",
+        "imagen": "./imagenes/cremosos/photo_4913774562282417104_y.jpg",
+        "categoria": {
+            "nombre": "Concha de Coco",
+            "id": "cremosos"
+        },
+        "precio": 20
+    }
+]
