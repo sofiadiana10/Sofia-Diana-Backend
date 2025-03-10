@@ -1,0 +1,31 @@
+
+<h1>🛒 Carrito de Compras</h1>
+<ul id="cartList">
+  {{#if cart.products.length}}
+    {{#each cart.products}}
+      <li>{{this.product.name}} - ${{this.product.price}} (x{{this.quantity}})
+      <button onclick="removeFromCart('{{this.product._id}}')">❌</button></li>
+    {{/each}}
+  {{else}}
+    <p>Tu carrito está vacío 🛒</p>
+  {{/if}}
+</ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+  socket.on("updateCart", (cart) => {
+    const list = document.getElementById("cartList");
+    list.innerHTML = cart.products.map(p =>
+      `<li>${p.product.name} - $${p.product.price} (x${p.quantity})
+      <button onclick="removeFromCart('${p.product._id}')">❌</button></li>`).join("");
+  });
+
+  function removeFromCart(productId) {
+    fetch("/cart/remove", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId }),
+    });
+  }
+</script>

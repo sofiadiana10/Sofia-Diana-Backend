@@ -1,0 +1,16 @@
+
+<h1>Productos en tiempo real</h1>
+<ul id="productList">
+  {{#each products}}
+    <li>{{this.name}} - ${{this.price}}</li>
+  {{/each}}
+</ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+  socket.on("updateProducts", (products) => {
+    const list = document.getElementById("productList");
+    list.innerHTML = products.map(p => `<li>${p.name} - $${p.price}</li>`).join("");
+  });
+</script>
